@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+</head>
+
+<body class="checkBODY">
+    <div class="container">
+        <h1 class="center-text">Verify OTP</h1>
+        <br><br>
+        <!--<p class="center-text">Please enter the OTP from your authentication app.</p> -->
+        <p class="otp-instructions">Please enter the OTP from your authentication app.</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <form method="post" action="{% url 'otp_verify' %}" class="form-center">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="otp">OTP Code:</label>
+                <input type="text" id="otp" name="otp" maxlength="6" required class="otp-input">
+            </div>
+            <br>
+            <button type="submit" class="btn-submit">Verify</button>
+        </form>
+
+        <!-- Display error message if any -->
+        {% if error_message %}
+            <p class="error-message center-text">{{ error_message }}</p>
+        {% endif %}
+        <br><br><br><br><br><br><br><br><br>
+        <!--<p class="center-text">-->
+    
+    
+        <p class="forgot-otp">
+            <a href="{% url 'otp_setup' %}">Forgot OTP? Set it up again.</a>
+        </p>
+    
+    
+    
+    
+    </div>
+</body>
+</html>

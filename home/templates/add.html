@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a user</title>
+</head>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<body>
+    
+<h1>Add member</h1>
+    <form action="{% url 'addMember' %}" method="post" class="add-form">
+        {% csrf_token %}
+        <label for="">Firstname</label><br><br>
+        <input type="text" name="first"> <br><br>
+        <label for="">Lastname</label><br><br>
+        <input type="text" name="last"> <br><br>
+        <label for="">Country</label><br><br>
+        <input type="text" name="country"> <br><br>
+        <button type="submit" id="new">Submit</button>
+        
+    </form>
+</body>
+</html>

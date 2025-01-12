@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Setup</title>
+</head>
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+
+<body class="setupBODY">
+    <h1>Set Up Two-Factor Authentication</h1>
+
+        <div class="qrcenter">
+        <p style="text-align: center;">Scan this QR code using Google Authenticator or any compatible app:</p>
+        <br><br><br><br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={{ qr_code_url }}" 
+             alt="QR Code for 2FA" style="display: block; margin: 0 auto;" />
+        <br><br><br><br>
+         <p style="text-align: center;">After scanning, enter the OTP code from your app to complete the setup.</p>
+    
+       
+       </div>
+<!---->
+       <form method="post" action="{% url 'otp_verify' %}" style="text-align: center;">
+        {% csrf_token %}
+        <label for="otp">Enter OTP:</label>
+        <input class="otp-input" type="text" id="otp" name="otp" maxlength="6" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+
+    <!-- Display error message if any -->
+    {% if error_message %}
+        <p style="color: red; text-align: center;">{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>

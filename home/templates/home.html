@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Dashboard</title>
+
+    
+
+
+</head>
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+<body>
+    <div class="container"></div>
+    <h1>Main Dashboard</h1>
+    <table id="customers" border="1">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Country</th>
+            <th colspan="2">Action</th>
+        </thead>
+        <tbody>
+            <!--<tr>
+                <td>123</td>
+                <td>Agron</td>
+                <td>Rroga</td>
+                <td>Tiron</td>
+                <td><a href=""><button id="update">Update</button></a></td>
+                <td><a href=""><button id="delete">Delete</button></a></td>
+            </tr>-->
+            {% for x in mem %}
+            <tr>
+                <td>{{ x.id }}</td>
+                <td>{{ x.firstname }}</td>  <!-- Corrected 'name' to 'firstname' -->
+                <td>{{ x.lastname }}</td>
+                <td>{{ x.country }}</td>  <!-- Corrected 'c.country' to 'x.country' -->
+                <td><a href="update/{{x.id}}"><button class="update-button">Update</button></a></td>
+                <!--<td><a href="{% url 'delete' x.id %}">Delete</a>-->
+                <td><a href="delete/{{x.id}}" class="delete-button">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+    
+    <br><br>
+    <a href="{% url 'add' %}"><button class="add-member">Add Member</button></a>
+    
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="styled-button">Log Out</button>
+    </form>
+{% endif %}
+
+    <!--<a href="{% url 'logout' %}"><button class="logO">Log Out</button></a>-->
+    
+</body>
+</html>
